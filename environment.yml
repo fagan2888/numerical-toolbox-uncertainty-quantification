@@ -1,0 +1,20 @@
+name: student_project
+
+channels:
+  - defaults
+  - conda-forge
+  - janosg
+
+
+dependencies:
+- python=3.6
+- pip
+- numpy
+- pandas=0.24
+- jupyterlab
+- matplotlib
+- seaborn
+- scipy
+- estimagic=0.0.8
+- pip:
+  - chaospy
