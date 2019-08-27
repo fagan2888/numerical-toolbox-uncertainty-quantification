@@ -15,8 +15,8 @@ To illustrate the program, the programs are run for a small number of iterations
 
 ## Reference
 
-Keane, M. P. & Wolpin, W. I. (1994). [The solution and estimation of discrete choice dynamic programming models by simulation and interpolation: Monte Carlo
-evidence](http://research.economics.unsw.edu.au/mkeane/Solution_Estimation_DP.pdf), 
+Keane, M. P. & Wolpin, W. I. (1994). [The Solution and Estimation of Discrete Choice Dynamic Pogramming Models by Simulation and Interpolation: Monte Carlo
+Evidence](http://research.economics.unsw.edu.au/mkeane/Solution_Estimation_DP.pdf), 
 *Review of Economics and Statistics, 76(4): 648-672.*
 
 
