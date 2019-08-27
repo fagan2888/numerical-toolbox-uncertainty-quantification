@@ -1,4 +1,4 @@
-name: student_project
+name: uq-exploration
 
 channels:
   - defaults
@@ -18,3 +18,4 @@ dependencies:
 - estimagic=0.0.8
 - pip:
   - chaospy
+  - respy
