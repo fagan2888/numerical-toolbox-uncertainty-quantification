@@ -7,10 +7,10 @@ bundler_args: --retry 3
 
 install:
   - sudo apt-get update
-  - ./utils/travis_miniconda.sh
+  - ./travis_utils/travis_miniconda.sh
   - PATH="$HOME/miniconda/bin:$PATH"
   - conda env create -f environment.yml
   - source activate uq-exploration
 
 script:
-  - travis_wait python utils/travis_runner.py
+  - travis_wait python travis_utils/travis_runner.py
