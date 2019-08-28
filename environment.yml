@@ -1,10 +1,9 @@
-name: uq-exploration
+name: uq
 
 channels:
   - defaults
   - conda-forge
   - janosg
-
 
 dependencies:
 - python=3.6
