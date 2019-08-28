@@ -17,4 +17,4 @@ dependencies:
 - estimagic=0.0.8
 - pip:
   - chaospy
-  - respy
+  #- respy; commented out b/c respy version from develop branch needed.

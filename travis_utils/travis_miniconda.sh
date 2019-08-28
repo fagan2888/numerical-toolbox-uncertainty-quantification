@@ -10,3 +10,6 @@ hash -r
 conda config --set always_yes yes --set changeps1 no
 conda update -q conda
 conda info -a
+
+# install from develop branch because tools not in master are needed.
+pip install git+https://github.com/OpenSourceEconomics/respy@develop
