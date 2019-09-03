@@ -13,8 +13,8 @@ Quantities of Interests of the Discrete Occupation Choice Dynamic Programming Mo
 in *Keane and Wolpin (1994)*.
 
 
-Program Code
-############
+Implementation
+##############
 
 To solve and simulate the model, we use the open-source software `respy <https://github.com/OpenSourceEconomics/respy>`_ and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
 Because the Monte-Carlo simulations require a long computation time, the relevant data
