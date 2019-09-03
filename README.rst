@@ -13,17 +13,18 @@ Quantities of Interests of the Discrete Occupation Choice Dynamic Programming Mo
 in *Keane and Wolpin (1994)*.
 
 
-Replication
-###########
+Program Code
+############
 
 To solve and simulate the model, we use the open-source software `respy <https://github.com/OpenSourceEconomics/respy>`_ and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
 Because the Monte-Carlo simulations require a long computation time, the relevant data
-is stored as pickles in ``auxiliary\results``.
+is stored as json in ``uncertainty-quantification\json``.
 To illustrate the program, it is run for a small number of iterations in the jupyter notebook.
 
 
 Reference
-*********
+#########
+
 Keane, M. P. & Wolpin, W. I. (1994). `The Solution and Estimation of 
 Discrete Choice Dynamic Pogramming Models by Simulation and Interpolation: Monte Carlo
 Evidence <http://research.economics.unsw.edu.au/mkeane/Solution_Estimation_DP.pdf>`_, 
