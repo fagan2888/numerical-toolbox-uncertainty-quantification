@@ -9,7 +9,7 @@ Exploration Uncertainty Quantification
     :target: https://github.com/python/black
 
 This repository conducts a explorative Monte-Carlo Uncertainty Quantification for 
-Quantities of Interests in *Keane and Wolpin(1994)*. Thereby, these Quantities
+Quantities of Interests in *Keane and Wolpin (1994)*. Thereby, these Quantities
 are computed.
 
 
@@ -17,7 +17,7 @@ are computed.
 Replication
 ###########
 
-To solve and simulate the model, I rely on the open-source software `respy <https://github.com/OpenSourceEconomics/respy>_` and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
+To solve and simulate the model, I rely on the open-source software `respy <https://github.com/OpenSourceEconomics/respy>`_ and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
 Because the Monte-Carlo simulations require a long computation time, the relevant data
 is stored as pickles in `auxiliary\results`.
 To illustrate the program, the programs are run for a small number of iterations in the jupyter notebook
