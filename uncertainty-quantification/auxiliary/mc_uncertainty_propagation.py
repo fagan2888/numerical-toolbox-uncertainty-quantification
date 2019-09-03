@@ -1,5 +1,5 @@
 import numpy as np
-from model_wrapper import model_wrapper_kw_94
+from auxiliary.model_wrapper import model_wrapper_kw_94
 
 
 def mc_uncertainty_propagation(mean, cov, n_draws):
@@ -36,7 +36,7 @@ def mc_uncertainty_propagation(mean, cov, n_draws):
     qoi = [np.nan] * n_draws
 
     for i in range(n_draws):
-        mc_params = np.random.multivariate_normal(mean, cov)
+        mc_params = mc_params = np.random.multivariate_normal(mean, cov)
         qoi[i] = model_wrapper_kw_94(mc_params)
 
     return qoi
