@@ -8,6 +8,9 @@ Exploration Uncertainty Quantification
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/python/black
 
+.. image:: https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.png
+     :target: https://nbviewer.jupyter.org/github/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/uncertainty-quantification/uq-exploration.ipynb
+
 This repository conducts a explorative Monte-Carlo Uncertainty Quantification for 
 Quantities of Interests of the Discrete Occupation Choice Dynamic Programming Model
 in *Keane and Wolpin (1994)*.
