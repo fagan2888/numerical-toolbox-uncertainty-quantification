@@ -2,6 +2,8 @@
 Exploration Uncertainty Quantification
 **************************************
 
+|
+
 .. image:: https://travis-ci.org/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification.svg?branch=master
     :target: https://travis-ci.org/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification
 
