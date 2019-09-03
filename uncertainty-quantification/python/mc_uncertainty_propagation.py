@@ -1,8 +1,10 @@
+import json
+
 import numpy as np
 from python.model_wrapper import model_wrapper_kw_94
 
 
-def mc_uncertainty_propagation(mean, cov, n_draws):
+def mc_uncertainty_propagation(mean, cov, n_draws, save=False):
     """
     Conducts a Monte Carlo Uncertainty Propagation.
     To conduct the Monte Carlo Uncertainty Propagation, a large number of
@@ -21,6 +23,8 @@ def mc_uncertainty_propagation(mean, cov, n_draws):
         Covariance Matrix of input parameters distribution.
     n_draws: int
         number of random draws of input parameters.
+    save: bool
+        Save qoi for later use, e.g. if runtime is high
 
     Returns
     -------
@@ -39,5 +43,11 @@ def mc_uncertainty_propagation(mean, cov, n_draws):
     for i in range(n_draws):
         mc_params = mc_params = np.random.multivariate_normal(mean, cov)
         qoi[i] = model_wrapper_kw_94(mc_params)
+
+    if save is True:
+        with open("json/qoi.json", "w") as write_file:
+            json.dump(qoi, write_file)
+    else:
+        pass
 
     return qoi
