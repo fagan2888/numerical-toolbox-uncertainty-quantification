@@ -2,8 +2,6 @@
 Exploration Uncertainty Quantification
 **************************************
 
-|
-
 .. image:: https://travis-ci.org/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification.svg?branch=master
     :target: https://travis-ci.org/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification
 
@@ -18,6 +16,8 @@ Exploration Uncertainty Quantification
 
 .. image:: https://github.com/jupyter/design/blob/master/logos/Badges/nbviewer_badge.svg
      :target: https://nbviewer.jupyter.org/github/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/uncertainty-quantification/uq-exploration.ipynb
+
+|
 
 This repository conducts a explorative Monte-Carlo Uncertainty Quantification for 
 Quantities of Interests of the Discrete Occupation Choice Dynamic Programming Model
