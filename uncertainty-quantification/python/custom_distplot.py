@@ -11,19 +11,18 @@ def custom_distplot(sample):
     Parameters
     ----------
     sample: Series, 1d-array, or list.
-        A vector of random observations
+        A vector of random observations.
 
     Returns
     -------
     dp: Figure
-        Returns Figure object setting figure-level attributes
+        Returns Figure object setting figure-level attributes.
     ax: Axes
-        Returns Axes object for setting axes attributes
+        Returns Axes object for setting axes attributes.
 
     Notes
     -----
-        `xlabel` and file-title are left to be set outside `custom_distplot`
-        call.
+    `xlabel` and file-title are left to be set outside `custom_distplot` call.
 
     """
     # Common sizes: (10, 7.5) and (12, 9): ~1.33x wider than tall.
@@ -43,15 +42,15 @@ def custom_distplot(sample):
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
 
-    # Set y-axis label
+    # Set y-axis label.
     plt.ylabel("Kernel Density Estimate", fontsize=16)
 
-    # Plot mean as vertical line
+    # Plot mean as vertical line.
     mean = plt.axvline(
         np.mean(sample), color="#3F5D7D", linestyle="--", lw=3, label="sample mean"
     )
 
-    # Call seaborn.distplot and set options
+    # Call seaborn.distplot and set options.
     dp = sns.distplot(
         sample,
         hist=True,
@@ -63,7 +62,7 @@ def custom_distplot(sample):
         kde_kws={"linewidth": 4},
     )
 
-    # Set legend
+    # Set legend.
     plt.legend(handles=[mean], fontsize=16, edgecolor="white")
 
     return dp, ax

@@ -24,14 +24,14 @@ def mc_uncertainty_propagation(mean, cov, n_draws):
 
     Returns
     -------
-    qoi: list
-        Realizations of Quantity of Interest.
-        Number of elements equals n_draws.
+    QoI: list
+        Sample of realizations of Quantity of Interest.
+        Number of elements equals len(n_draws).
 
     Notes
     -----
-        Here it is assumed that the joint distribution of input paramters is
-        Normal.
+    Here it is assumed that the joint distribution of input parameters is
+    Normal.
 
     """
     qoi = [np.nan] * n_draws
