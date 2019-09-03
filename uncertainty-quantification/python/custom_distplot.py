@@ -25,9 +25,7 @@ def custom_distplot(sample):
         `xlabel` and file-title are left to be set outside `custom_distplot`
         call.
 
-
     """
-
     # Common sizes: (10, 7.5) and (12, 9): ~1.33x wider than tall.
     plt.figure(figsize=(12, 9))
 
