@@ -9,6 +9,9 @@ Exploration Uncertainty Quantification
     :target: https://github.com/python/black
 
 .. image:: https://mybinder.org/badge.svg
+     :target: https://hub.gke.mybinder.org/user/opensourceecono--quantification-r5b326rz/notebooks/uncertainty-quantification/uq-exploration.ipynb
+
+.. image:: https://github.com/jupyter/design/blob/master/logos/Badges/nbviewer_badge.svg
      :target: https://nbviewer.jupyter.org/github/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/uncertainty-quantification/uq-exploration.ipynb
 
 This repository conducts a explorative Monte-Carlo Uncertainty Quantification for 
