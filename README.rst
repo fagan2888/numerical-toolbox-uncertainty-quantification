@@ -17,7 +17,7 @@ are computed.
 Replication
 ###########
 
-To solve and simulate the model, I rely on the open-source software [*respy*](https://github.com/OpenSourceEconomics/respy) and [*estimagic*](https://github.com/OpenSourceEconomics/estimagic).
+To solve and simulate the model, I rely on the open-source software [*respy*](https://github.com/OpenSourceEconomics/respy) and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
 Because the Monte-Carlo simulations require a long computation time, the relevant data
 is stored as pickles in `auxiliary\results`.
 To illustrate the program, the programs are run for a small number of iterations in the jupyter notebook
@@ -25,9 +25,9 @@ To illustrate the program, the programs are run for a small number of iterations
 
 Reference
 *********
-Keane, M. P. & Wolpin, W. I. (1994). [The Solution and Estimation of 
+Keane, M. P. & Wolpin, W. I. (1994). `The Solution and Estimation of 
 Discrete Choice Dynamic Pogramming Models by Simulation and Interpolation: Monte Carlo
-Evidence](http://research.economics.unsw.edu.au/mkeane/Solution_Estimation_DP.pdf), 
+Evidence <http://research.economics.unsw.edu.au/mkeane/Solution_Estimation_DP.pdf>`_, 
 *Review of Economics and Statistics*, 76(4): 648-672.
 
 
