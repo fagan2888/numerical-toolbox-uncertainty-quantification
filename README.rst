@@ -9,9 +9,7 @@ Exploration Uncertainty Quantification
     :target: https://github.com/python/black
 
 This repository conducts a explorative Monte-Carlo Uncertainty Quantification for 
-Quantities of Interests in *Keane and Wolpin (1994)*. Thereby, these Quantities
-are computed.
-
+Quantities of Interests in *Keane and Wolpin (1994)*.
 
 
 Replication

@@ -3,7 +3,8 @@ from auxiliary.model_wrapper import model_wrapper_kw_94
 
 
 def mc_uncertainty_propagation(mean, cov, n_draws):
-    """Conducts a Monte Carlo Uncertainty Propagation.
+    """
+    Conducts a Monte Carlo Uncertainty Propagation.
     To conduct the Monte Carlo Uncertainty Propagation, a large number of
     input parameters is drawn randomly given their joint distribution.
     For each input paramter vector, the Quantity of Interest (QoI) is computed
