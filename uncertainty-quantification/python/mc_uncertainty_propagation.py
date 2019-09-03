@@ -1,5 +1,5 @@
 import numpy as np
-from auxiliary.model_wrapper import model_wrapper_kw_94
+from python.model_wrapper import model_wrapper_kw_94
 
 
 def mc_uncertainty_propagation(mean, cov, n_draws):

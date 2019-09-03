@@ -8,8 +8,8 @@ def model_wrapper_kw_94(input_params):
     paramters. The model is the Dicrete Occupational Dynamic Programming Model
     in Keane and Wolpin (1994).
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     params: array_like
         Vector of 59 input parameters.
 
@@ -21,13 +21,15 @@ def model_wrapper_kw_94(input_params):
         years of schooling. See table 6, page 668 in KW94.
 
     """
-    # Check input_params
-    assert len(input_params) == 59, "The Length of input_params must be 59"
-
     # Build simulate function. It can be reused as only parameters change.
     params, options = rp.get_example_model("kw_94_one", with_data=False)
     options["simulation_agents"] = 4000
     simulate = rp.get_simulate_func(params, options)
+
+    # Check whether length of input_params is correct.
+    assert len(input_params) == len(
+        params["value"].to_numpy()
+    ), "The number of input parameters must equal the number of model parameters."
 
     tuition_subsidies = [0, 500]
     data_frames = []
