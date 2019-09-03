@@ -1,5 +1,5 @@
 exclude: >
-        numerical-toolbox-uncertainty-quantification/.ipynb_checkpoints
+        numerical-toolbox-uncertainty-quantification/uncertainty-quantification/.ipynb_checkpoints
 repos:
 -   repo: https://github.com/asottile/reorder_python_imports
     rev: v1.4.0
