@@ -27,7 +27,7 @@ Implementation
 
 To solve and simulate the model, we use the open-source software `respy <https://github.com/OpenSourceEconomics/respy>`_ and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
 Because the Monte-Carlo simulations require a long computation time, the relevant data
-is stored as json in folder``uncertainty-quantification\json``.
+is stored as json in folder``uncertainty-quantification/json``.
 To illustrate the program, it is run for a small number of iterations in the
 jupyter notebook 
 ``uncertainty-quantification/uq-exploration.ipynb``.
