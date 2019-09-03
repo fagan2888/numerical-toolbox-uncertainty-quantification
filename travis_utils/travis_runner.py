@@ -4,7 +4,7 @@ import subprocess as sp
 
 if __name__ == "__main__":
 
-    notebook = "uncertainty-quantification/notebook.ipynb"
+    notebook = "uncertainty-quantification/uq-exploration.ipynb"
     cmd = " jupyter nbconvert --execute {}  \
     --ExecutePreprocessor.timeout=-1".format(
         notebook
