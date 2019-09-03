@@ -1,6 +1,6 @@
-*************************************************************
-Monte-Carlo Uncertainty Quantification for Keane/Wolpin(1994)
-*************************************************************
+**************************************
+Exploration Uncertainty Quantification
+**************************************
 
 .. image:: https://travis-ci.org/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification.svg?branch=master
     :target: https://travis-ci.org/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification
@@ -8,8 +8,8 @@ Monte-Carlo Uncertainty Quantification for Keane/Wolpin(1994)
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/python/black
 
-This repository conducts a Monte-Carlo Uncertainty Quantification for 
-Quantities of Interests in *Keane/Wolpin(1994)*. Thereby, these Quantities
+This repository conducts a explorative Monte-Carlo Uncertainty Quantification for 
+Quantities of Interests in *Keane and Wolpin(1994)*. Thereby, these Quantities
 are computed.
 
 
