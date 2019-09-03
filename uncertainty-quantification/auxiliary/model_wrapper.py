@@ -7,7 +7,7 @@ def model_wrapper_kw_94(input_params):
     """In Uncertainty Quantification terminology:
     Computes the Quantity of Interest (QoI) of some model given some input
     paramters. The model is the Dicrete Occupational Dynamic Programming Model
-    in Keane and Wolpin(1994).
+    in Keane and Wolpin (1994).
 
     Paramters
     ---------
