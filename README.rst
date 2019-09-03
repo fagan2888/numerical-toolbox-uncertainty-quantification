@@ -20,7 +20,7 @@ Replication
 To solve and simulate the model, I rely on the open-source software `respy <https://github.com/OpenSourceEconomics/respy>`_ and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
 Because the Monte-Carlo simulations require a long computation time, the relevant data
 is stored as pickles in ``auxiliary\results``.
-To illustrate the program, the programs are run for a small number of iterations in the jupyter notebook
+To illustrate the program, it is run for a small number of iterations in the jupyter notebook
 
 
 Reference
