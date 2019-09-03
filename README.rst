@@ -8,7 +8,7 @@ Exploration Uncertainty Quantification
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/python/black
 
-.. image:: https://mybinder.org/badge.svg
+.. image:: https://static.mybinder.org/badge_logo.svg
      :target: https://hub.gke.mybinder.org/user/opensourceecono--quantification-r5b326rz/notebooks/uncertainty-quantification/uq-exploration.ipynb
 
 .. image:: https://github.com/jupyter/design/blob/master/logos/Badges/nbviewer_badge.svg
