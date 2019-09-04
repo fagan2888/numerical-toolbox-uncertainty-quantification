@@ -4,7 +4,7 @@ import numpy as np
 from python.model_wrapper import model_wrapper_kw_94
 
 
-def mc_uncertainty_propagation(mean, cov, n_draws, save=False):
+def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     """
     Conducts a Monte Carlo Uncertainty Propagation.
     To conduct the Monte Carlo Uncertainty Propagation, a large number of
@@ -44,7 +44,7 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save=False):
         mc_params = mc_params = np.random.multivariate_normal(mean, cov)
         qoi[i] = model_wrapper_kw_94(mc_params)
 
-    if save is True:
+    if save_json is True:
         with open("json/qoi.json", "w") as write_file:
             json.dump(qoi, write_file)
     else:

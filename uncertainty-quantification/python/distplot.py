@@ -3,10 +3,9 @@ import numpy as np
 import seaborn as sns
 
 
-def custom_distplot(sample):
+def distplot(sample):
     """
-    This function is a custom-made wrapper around seaborn.distplot
-    to present the results.
+    This function is a custom-made wrapper around seaborn.distplot.
 
     Parameters
     ----------
@@ -28,26 +27,23 @@ def custom_distplot(sample):
     # Common sizes: (10, 7.5) and (12, 9): ~1.33x wider than tall.
     plt.figure(figsize=(12, 9))
 
+    plt.title("Distribution of Quantity of Interest", fontsize=24)
+
     # Remove plot frame lines
     ax = plt.subplot(111)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-
-    # Ensure that the axis ticks only show up on the bottom and left of the
-    # plot.
-    ax.get_xaxis().tick_bottom()
-    ax.get_yaxis().tick_left()
 
     # Set axis ticks size
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
 
     # Set y-axis label.
-    plt.ylabel("Kernel Density Estimate", fontsize=16)
+    plt.ylabel("Kernel Density Estimate", fontsize=22)
 
     # Plot mean as vertical line.
     mean = plt.axvline(
-        np.mean(sample), color="#3F5D7D", linestyle="--", lw=3, label="sample mean"
+        np.mean(sample), color="#3F5D7D", linestyle="--", lw=3, label="Mean value"
     )
 
     # Call seaborn.distplot and set options.
@@ -63,6 +59,7 @@ def custom_distplot(sample):
     )
 
     # Set legend.
-    plt.legend(handles=[mean], fontsize=16, edgecolor="white")
+    plt.legend(handles=[mean], fontsize=18, edgecolor="white")
 
+    plt.savefig("figures/distplot.png", bbox_inches="tight")
     return dp, ax
