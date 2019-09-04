@@ -47,7 +47,7 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
         expected, 1, len(sample), lw=2.0, linestyle="--", label="Expected value"
     )
 
-    ax.set_title(title, fontsize=24)
+    ax.set_title(title, fontsize=28, y=1.05)
     ax.set_xlim(1, len(sample))
     ax.grid(True, linestyle=(0, (5, 10)))
     ax.set_ylabel(y_label, fontsize=22, labelpad=14)

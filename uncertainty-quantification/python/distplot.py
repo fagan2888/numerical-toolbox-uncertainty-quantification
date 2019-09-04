@@ -39,7 +39,7 @@ def distplot(sample):
         kde_kws={"linewidth": 4},
     )
 
-    ax.set_title("Distribution of Quantity of Interest", fontsize=24)
+    ax.set_title("Distribution of Quantity of Interest", fontsize=24, y=1.05)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.tick_params(axis="both", labelsize=14)
