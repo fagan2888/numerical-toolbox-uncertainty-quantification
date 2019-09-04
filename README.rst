@@ -10,7 +10,7 @@ in *Keane and Wolpin (1994)*. Our exploration is described in this `notebook <ht
      :target: https://nbviewer.jupyter.org/github/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/uncertainty-quantification/uq-exploration.ipynb
      
 .. image:: https://static.mybinder.org/badge_logo.svg
-     :target: https://hub.gke.mybinder.org/user/opensourceecono--quantification-r5b326rz/notebooks/uncertainty-quantification/uq-exploration.ipynb
+     :target: https://mybinder.org/v2/gh/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/master?filepath=https%3A%2F%2Fgithub.com%2FOpenSourceEconomics%2Fnumerical-toolbox-uncertainty-quantification%2Fblob%2Fmaster%2Funcertainty-quantification%2Fuq-exploration.ipynb
 
 
 Implementation
