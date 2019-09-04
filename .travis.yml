@@ -13,4 +13,4 @@ install:
   - source activate uq
 
 script:
-  - travis_wait python _travis_utils/travis_runner.py
+  - travis_wait python /_travis_utils/travis_runner.py
