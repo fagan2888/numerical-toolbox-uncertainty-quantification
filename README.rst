@@ -2,17 +2,15 @@
 Exploration Uncertainty Quantification
 **************************************
 
+This repository conducts an explorative Monte-Carlo Uncertainty Quantification for 
+Quantities of Interests of the Discrete Occupation Choice Dynamic Programming Model
+in *Keane and Wolpin (1994)*. Our exploration is described in this `notebook <https://github.com/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/uncertainty-quantification/uq-exploration.ipynb>`_.
+
 .. image:: https://static.mybinder.org/badge_logo.svg
      :target: https://hub.gke.mybinder.org/user/opensourceecono--quantification-r5b326rz/notebooks/uncertainty-quantification/uq-exploration.ipynb
 
 .. image:: https://github.com/jupyter/design/blob/master/logos/Badges/nbviewer_badge.svg
      :target: https://nbviewer.jupyter.org/github/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/uncertainty-quantification/uq-exploration.ipynb
-
-|
-
-This repository conducts an explorative Monte-Carlo Uncertainty Quantification for 
-Quantities of Interests of the Discrete Occupation Choice Dynamic Programming Model
-in *Keane and Wolpin (1994)*. Our exploration is described in this `notebook <https://github.com/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/uncertainty-quantification/uq-exploration.ipynb>`_.
 
 
 Implementation
