@@ -37,12 +37,12 @@ def distplot(sample):
         kde_kws={"linewidth": 4},
     )
 
-    ax.set_title("Distribution of Quantity of Interest", fontsize=24, y=1.05)
+    ax.set_title("Distribution of Quantity of Interest", fontsize=28, y=1.05)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.tick_params(axis="both", labelsize=14)
-    ax.set_ylabel("Kernel Density Estimate", fontsize=22)
-    ax.legend(handles=[mean], fontsize=18, edgecolor="white")
+    ax.tick_params(axis="both", labelsize=20)
+    ax.set_ylabel("Kernel Density Estimate", fontsize=24)
+    ax.legend(handles=[mean], fontsize=20, edgecolor="white")
 
     plt.savefig("figures/distplot.png", bbox_inches="tight")
 

@@ -54,12 +54,12 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
     ax.set_title(title, fontsize=28, y=1.05)
     ax.set_xlim(1, len(sample))
     ax.grid(True, linestyle=(0, (5, 10)))
-    ax.set_ylabel(y_label, fontsize=22, labelpad=14)
-    ax.set_xlabel("Number of iterations", fontsize=22, labelpad=14)
-    ax.tick_params(axis="both", labelsize=14)
+    ax.set_ylabel(y_label, fontsize=24, labelpad=14)
+    ax.set_xlabel("Number of iterations", fontsize=24, labelpad=14)
+    ax.tick_params(axis="both", labelsize=20)
     ax.legend(
         handles=[exp_plot, conv_plot],
-        fontsize=18,
+        fontsize=20,
         loc="upper right",
         edgecolor="black",
         fancybox=False,
