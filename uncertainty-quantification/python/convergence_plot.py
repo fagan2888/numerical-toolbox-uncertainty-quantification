@@ -18,19 +18,19 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
     -------
     dp: Figure
         Returns Figure object setting figure-level attributes.
-    ax: Axes
-        Returns Axes object for setting axes attributes.
 
     """
     if absolute_deviation is not True:
         # Compute sample mean for each iteration
         df = pd.DataFrame(sample, columns=["qoi_realization"])
         title = "Convergence of Monte-Carlo Uncertainty Propagation (level)"
+        file_str = "level"
     else:
         df = pd.DataFrame(
             [abs(x - expected) for x in sample], columns=["qoi_realization"]
         )
         title = "Convergence of MC Uncertainty Propagation (absolute deviation)"
+        file_str = "abs_dev"
         expected = 0
 
     df["cum_sum"] = df["qoi_realization"].cumsum()
@@ -61,6 +61,6 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
         fancybox=False,
     )
 
-    plt.savefig("figures/convergence_plot.png", bbox_inches="tight")
+    plt.savefig("figures/convergence_plot_{}.png".format(file_str), bbox_inches="tight")
 
     return plt

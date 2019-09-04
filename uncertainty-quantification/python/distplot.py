@@ -16,8 +16,6 @@ def distplot(sample):
     -------
     dp: Figure
         Returns Figure object setting figure-level attributes.
-    ax: Axes
-        Returns Axes object for setting axes attributes.
 
     """
     fig, ax = plt.subplots(figsize=(12, 9))
