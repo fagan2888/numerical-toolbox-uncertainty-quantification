@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def convergence_plot(sample, expected, y_label):
+def convergence_plot(sample, expected, y_label, absolute_deviation=False):
     """
     This function is a custom-made convergence plot for some Monte-Carlo
     sample.
@@ -22,8 +22,17 @@ def convergence_plot(sample, expected, y_label):
         Returns Axes object for setting axes attributes.
 
     """
-    # Compute sample mean for each iteration
-    df = pd.DataFrame(sample, columns=["qoi_realization"])
+    if absolute_deviation is not True:
+        # Compute sample mean for each iteration
+        df = pd.DataFrame(sample, columns=["qoi_realization"])
+        title = "Convergence of Monte-Carlo Uncertainty Propagation (level)"
+    else:
+        df = pd.DataFrame(
+            [abs(x - expected) for x in sample], columns=["qoi_realization"]
+        )
+        title = "Convergence of MC Uncertainty Propagation (absolute deviation)"
+        expected = 0
+
     df["cum_sum"] = df["qoi_realization"].cumsum()
     df["mean_iteration"] = df["cum_sum"] / (df.index.to_series() + 1)
 
@@ -38,7 +47,7 @@ def convergence_plot(sample, expected, y_label):
         expected, 1, len(sample), lw=2.0, linestyle="--", label="Expected value"
     )
 
-    ax.set_title("Convergence of Monte-Carlo Uncertainty Propagation", fontsize=24)
+    ax.set_title(title, fontsize=24)
     ax.set_xlim(1, len(sample))
     ax.grid(True, linestyle=(0, (5, 10)))
     ax.set_ylabel(y_label, fontsize=22, labelpad=14)
