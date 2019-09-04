@@ -23,8 +23,8 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
         Covariance Matrix of input parameters distribution.
     n_draws: int
         number of random draws of input parameters.
-    save: bool
-        Save qoi for later use, e.g. if runtime is high
+    save_json: bool
+        Save qoi as json for later use, e.g. if runtime is high
 
     Returns
     -------

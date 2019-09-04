@@ -13,6 +13,10 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
         A vector of random observations.
     expected: float, int.
         Expected value of sample mean.
+    y_label: str
+        Label of y-axis.
+    absolute_deviation: bool
+        Plots absolute deviation of means to zero expectation value.
 
     Returns
     -------
@@ -29,9 +33,9 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
         df = pd.DataFrame(
             [abs(x - expected) for x in sample], columns=["qoi_realization"]
         )
+        expected = 0
         title = "Convergence of MC Uncertainty Propagation (absolute deviation)"
         file_str = "abs_dev"
-        expected = 0
 
     df["cum_sum"] = df["qoi_realization"].cumsum()
     df["mean_iteration"] = df["cum_sum"] / (df.index.to_series() + 1)
