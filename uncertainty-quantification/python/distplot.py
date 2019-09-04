@@ -19,30 +19,11 @@ def distplot(sample):
     ax: Axes
         Returns Axes object for setting axes attributes.
 
-    Notes
-    -----
-    `xlabel` and file-title are left to be set outside `custom_distplot` call.
-
     """
-    # Common sizes: (10, 7.5) and (12, 9): ~1.33x wider than tall.
-    plt.figure(figsize=(12, 9))
-
-    plt.title("Distribution of Quantity of Interest", fontsize=24)
-
-    # Remove plot frame lines
-    ax = plt.subplot(111)
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-
-    # Set axis ticks size
-    plt.xticks(fontsize=14)
-    plt.yticks(fontsize=14)
-
-    # Set y-axis label.
-    plt.ylabel("Kernel Density Estimate", fontsize=22)
+    fig, ax = plt.subplots(figsize=(12, 9))
 
     # Plot mean as vertical line.
-    mean = plt.axvline(
+    mean = ax.axvline(
         np.mean(sample), color="#3F5D7D", linestyle="--", lw=3, label="Mean value"
     )
 
@@ -58,8 +39,13 @@ def distplot(sample):
         kde_kws={"linewidth": 4},
     )
 
-    # Set legend.
-    plt.legend(handles=[mean], fontsize=18, edgecolor="white")
+    ax.set_title("Distribution of Quantity of Interest", fontsize=24)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.tick_params(axis="both", labelsize=14)
+    ax.set_ylabel("Kernel Density Estimate", fontsize=22)
+    ax.legend(handles=[mean], fontsize=18, edgecolor="white")
 
     plt.savefig("figures/distplot.png", bbox_inches="tight")
-    return dp, ax
+
+    return dp

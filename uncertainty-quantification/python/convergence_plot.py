@@ -12,7 +12,7 @@ def convergence_plot(sample, expected, y_label):
     sample: Series, 1d-array, or list.
         A vector of random observations.
     expected: float, int.
-        expectation value of sample mean.
+        Expected value of sample mean.
 
     Returns
     -------
@@ -22,34 +22,29 @@ def convergence_plot(sample, expected, y_label):
         Returns Axes object for setting axes attributes.
 
     """
+    # Compute sample mean for each iteration
     df = pd.DataFrame(sample, columns=["qoi_realization"])
     df["cum_sum"] = df["qoi_realization"].cumsum()
     df["mean_iteration"] = df["cum_sum"] / (df.index.to_series() + 1)
 
-    plt.figure(figsize=(12, 9))
-    plt.title("Convergence of Monte-Carlo Uncertainty Propagation", fontsize=24)
+    fig, ax = plt.subplots(figsize=(12, 9))
 
-    conv_plot, = plt.plot(
-        df.index + 1, df["mean_iteration"], lw=2.5, label="MC Convergence"
+    conv_plot, = ax.plot(
+        df.index + 1, df["mean_iteration"], lw=2.5, label="Sample mean"
     )
 
-    # Plot expected.
-    exp_plot = plt.hlines(
+    # Plot expected value.
+    exp_plot = ax.hlines(
         expected, 1, len(sample), lw=2.0, linestyle="--", label="Expected value"
     )
 
-    plt.xlim(1, len(sample))
-    plt.grid(True, linestyle=(0, (5, 10)))
-
-    # Make sure that all labels are large enough -
-    plt.ylabel(y_label, fontsize=22, labelpad=14)
-    plt.xlabel("Number of iterations", fontsize=22, labelpad=14)
-
-    # Ensure axis ticks are large enough to be easily read.
-    plt.yticks(fontsize=14)
-    plt.xticks(fontsize=14)
-
-    plt.legend(
+    ax.set_title("Convergence of Monte-Carlo Uncertainty Propagation", fontsize=24)
+    ax.set_xlim(1, len(sample))
+    ax.grid(True, linestyle=(0, (5, 10)))
+    ax.set_ylabel(y_label, fontsize=22, labelpad=14)
+    ax.set_xlabel("Number of iterations", fontsize=22, labelpad=14)
+    ax.tick_params(axis="both", labelsize=14)
+    ax.legend(
         handles=[exp_plot, conv_plot],
         fontsize=18,
         loc="upper right",
