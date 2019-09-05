@@ -43,12 +43,12 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
     fig, ax = plt.subplots(figsize=(12, 9))
 
     conv_plot, = ax.plot(
-        df.index + 1, df["mean_iteration"], lw=2.5, label="Sample mean"
+        df.index + 1, df["mean_iteration"], lw=3.0, label="Sample mean"
     )
 
     # Plot expected value.
     exp_plot = ax.hlines(
-        expected, 1, len(sample), lw=2.0, linestyle="--", label="Expected value"
+        expected, 1, len(sample), lw=2.5, linestyle="--", label="Expected value"
     )
 
     ax.set_title(title, fontsize=28, y=1.05)

@@ -40,8 +40,12 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     """
     qoi = [np.nan] * n_draws
 
+    np.random.seed(187)
+    iter_seed = np.random.randint(1, 100, n_draws)
+
     for i in range(n_draws):
-        mc_params = mc_params = np.random.multivariate_normal(mean, cov)
+        np.random.seed(iter_seed[i])
+        mc_params = np.random.multivariate_normal(mean, cov)
         qoi[i] = model_wrapper_kw_94(mc_params)
 
     if save_json is True:
