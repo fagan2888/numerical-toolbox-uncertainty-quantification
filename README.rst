@@ -16,7 +16,7 @@ in *Keane and Wolpin (1994)*. Our exploration is described in this `notebook <ht
 Implementation
 ##############
 
-To solve and simulate the showcase model, we use our research groups' open-source software `respy <https://github.com/OpenSourceEconomics/respy>`_ and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
+To solve and simulate the showcase model, we use our research group's open-source software `respy <https://github.com/OpenSourceEconomics/respy>`_ and `estimagic <https://github.com/OpenSourceEconomics/estimagic>`_.
 Because the Monte-Carlo simulations require a long computation time, the relevant data
 is stored as json in folder ``uncertainty-quantification/json``.
 To illustrate the program, it is run for a small number of iterations in the
