@@ -53,12 +53,12 @@ cov[49, 49] = df.loc["a22", "var"]
 cov[50, 50] = df.loc["a22", "var"]
 
 # non-diagonal
-cov[47, 47] = df.loc["a21", "var"]
-cov[47, 47] = df.loc["a31", "var"]
-cov[47, 47] = df.loc["a32", "var"]
-cov[47, 47] = df.loc["a41", "var"]
-cov[47, 47] = df.loc["a42", "var"]
-cov[47, 47] = df.loc["a43", "var"]
+cov[51, 51] = df.loc["a21", "var"]
+cov[52, 52] = df.loc["a31", "var"]
+cov[53, 53] = df.loc["a32", "var"]
+cov[54, 54] = df.loc["a41", "var"]
+cov[55, 55] = df.loc["a42", "var"]
+cov[56, 56] = df.loc["a43", "var"]
 
 cov_list = cov.tolist()
 
