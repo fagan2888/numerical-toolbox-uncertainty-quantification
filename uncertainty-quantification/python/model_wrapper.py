@@ -38,7 +38,9 @@ def model_wrapper_kw_94(input_params):
         params, _ = rp.get_example_model("kw_94_one", with_data=False)
         # Set paramters equal to input paramters.
         params["value"] = input_params
-        params.loc[("nonpec_edu", "hs_graduate"), "value"] += tuition_subsidy
+        params.loc[
+            ("nonpec_edu", "at_least_twelve_exp_edu"), "value"
+        ] += tuition_subsidy
         data_frames.append(simulate(params))
 
     for df in data_frames:
