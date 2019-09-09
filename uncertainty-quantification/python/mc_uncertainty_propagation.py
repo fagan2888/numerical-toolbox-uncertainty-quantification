@@ -41,12 +41,13 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     qoi = [np.nan] * n_draws
 
     np.random.seed(187)
-    iter_seed = np.random.randint(1, 100, n_draws)
+    iter_seed = np.random.randint(1, 10000, n_draws)
 
     for i in range(n_draws):
         np.random.seed(iter_seed[i])
-        mc_params = np.random.multivariate_normal(mean, cov)
-        qoi[i] = model_wrapper_kw_94(mc_params)
+        kw94_params = np.random.multivariate_normal(mean, cov)
+        respy_params = transform_params_kw94_respy(kw94_params)
+        qoi[i] = model_wrapper_kw_94(respy_params)
 
     if save_json is True:
         with open("json/qoi.json", "w") as write_file:
@@ -55,3 +56,42 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
         pass
 
     return qoi
+
+
+def transform_params_kw94_respy(params):
+    """
+    Transforms parameters vector in format of KW94 (see table 4.1)
+    to respy format. The difference is that KW94 specifyies the distribution of
+    elements in a Cholesky Decomposition matrix but respy takes
+    Standard deviations and Correlations.
+
+    Parameters
+    ----------
+    params: array_like
+        Vector of model input parameters in KW94 format.
+
+    Returns
+    -------
+    params: array_like
+        Vector of model input parameters in respy format.
+
+    """
+    chol = np.zeros((4, 4))
+    np.fill_diagonal(chol, params[17:21])
+    chol[1, 0] = params[21]
+    chol[2, :2] = [params[22], params[23]]
+    chol[3, :3] = [params[24], params[25], params[26]]
+
+    cov = np.matmul(chol, chol.T)
+
+    sd = np.sqrt(np.diag(cov))
+
+    params[17:21] = sd
+    params[21] = cov[1, 0] / (sd[1] * sd[0])
+    params[22] = cov[2, 0] / (sd[2] * sd[0])
+    params[23] = cov[2, 1] / (sd[2] * sd[1])
+    params[24] = cov[3, 0] / (sd[3] * sd[0])
+    params[25] = cov[3, 1] / (sd[3] * sd[1])
+    params[26] = cov[3, 2] / (sd[3] * sd[2])
+
+    return params
