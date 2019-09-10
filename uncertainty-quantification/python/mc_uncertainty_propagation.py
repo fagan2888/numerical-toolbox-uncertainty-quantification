@@ -40,11 +40,8 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     """
     qoi = [np.nan] * n_draws
 
-    np.random.seed(187)
-    iter_seed = np.random.randint(1, 10000, n_draws)
-
     for i in range(n_draws):
-        np.random.seed(iter_seed[i])
+        np.random.seed(i + 100)
         kw94_params = np.random.multivariate_normal(mean, cov)
         respy_params = transform_params_kw94_respy(kw94_params)
         qoi[i] = model_wrapper_kw_94(respy_params)

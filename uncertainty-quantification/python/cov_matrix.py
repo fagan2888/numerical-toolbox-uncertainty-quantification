@@ -21,7 +21,7 @@ def create_cov_matrix():
     """
     params, options = rp.get_example_model("kw_94_one", with_data=False)
 
-    df = pd.read_csv("csv/table41_columns_kw_94.csv", sep=",", index_col=0)
+    df = pd.read_csv("csv/table41_kw_94.csv", sep=",", index_col=0)
     df["var"] = df["sd"] ** 2
 
     cov = np.zeros((len(params), len(params)))
