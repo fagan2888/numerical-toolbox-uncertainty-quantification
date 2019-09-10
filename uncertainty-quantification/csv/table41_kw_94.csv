@@ -1,4 +1,4 @@
-paramter,respy_loc,true,sd
+parameter,respy_loc,true,sd
 alpha10,"('wage_a', 'constant')",9.21,0.0016
 alpha11,"('wage_a', 'exp_edu')",0.038,0.00016
 alpha12,"('wage_a', 'exp_a')",0.033,0.00014
