@@ -1,5 +1,6 @@
 import json
 
+import chaospy as cp
 import numpy as np
 import pandas as pd
 import respy as rp
@@ -46,7 +47,7 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
 
     for i in range(n_draws):
         np.random.seed(i + 100)
-        draws = np.random.multivariate_normal(mean, cov)
+        draws = cp.MvNormal(loc=mean, scale=cov)
         kw94_params = pd.Series(data=draws, index=df["parameter"].values)
         respy_params = transform_params_kw94_respy(kw94_params)
         qoi[i] = model_wrapper_kw_94(respy_params.values)
