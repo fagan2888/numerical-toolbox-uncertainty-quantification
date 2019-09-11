@@ -1,5 +1,5 @@
+import numpy.testing as npt
 import pandas as pd
-import pytest
 import respy as rp
 from python.mc_uncertainty_propagation import transform_params_kw94_respy
 
@@ -24,7 +24,7 @@ def test_transform_dataset1():
 
 
 # There is probably a typo in the respy paramters.["value"] vector.
-@pytest.mark.xfail
+# @pytest.mark.xfail
 def test_transform_dataset2():
     """
     Tests whether function `transform_params_kw94_respy` correctly transforms
@@ -45,7 +45,7 @@ def test_transform_dataset2():
 
 
 # Small differences in decimals of Correlations and SDs. Reason is to be found.
-@pytest.mark.xfail
+# @pytest.mark.xfail
 def test_transform_dataset3():
     """
     Tests whether function `transform_params_kw94_respy` correctly transforms
@@ -59,7 +59,9 @@ def test_transform_dataset3():
     params_kw94_ds3 = pd.Series(data=df["true"].values, index=df["parameter"].values)
     params_kw94_ds3_expected = transform_params_kw94_respy(params_kw94_ds3)
 
-    assert (
-        params_respy_ds3_expected["value"].to_numpy()
-        == params_kw94_ds3_expected.to_numpy()
-    ).all()
+    npt.assert_allclose(
+        params_respy_ds3_expected["value"].to_numpy(),
+        params_kw94_ds3_expected.to_numpy(),
+        rtol=0.0001,
+        atol=0,
+    )

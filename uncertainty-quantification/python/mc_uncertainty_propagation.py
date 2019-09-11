@@ -41,16 +41,21 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     Normal.
 
     """
+    distribution = cp.MvNormal(loc=mean, scale=cov)
+
     df = pd.read_csv("csv/table41_kw_94.csv", sep=",")
 
     qoi = [np.nan] * n_draws
 
-    for i in range(n_draws):
-        np.random.seed(i + 100)
-        draws = cp.MvNormal(loc=mean, scale=cov)
-        kw94_params = pd.Series(data=draws, index=df["parameter"].values)
-        respy_params = transform_params_kw94_respy(kw94_params)
-        qoi[i] = model_wrapper_kw_94(respy_params.values)
+    np.random.seed(187)
+    draws = distribution.sample(n_draws)
+
+    kw94_params = [
+        pd.Series(data=draw.ravel(), index=df["parameter"].values) for draw in draws.T
+    ]
+
+    respy_params = [transform_params_kw94_respy(kwp) for kwp in kw94_params]
+    qoi = [model_wrapper_kw_94(rp.values) for rp in respy_params]
 
     if save_json is True:
         with open("json/qoi.json", "w") as write_file:

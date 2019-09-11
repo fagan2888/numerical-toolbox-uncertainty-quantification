@@ -29,7 +29,7 @@ def create_cov_matrix():
     df["var"] = df["sd"] ** 2
 
     cov_df = pd.DataFrame(
-        data=np.zeros((len(df["sd"]), len(df["sd"]))),
+        data=np.zeros((len(df["var"]), len(df["var"]))),
         index=df["parameter"].values,
         columns=df["parameter"].values,
     )
