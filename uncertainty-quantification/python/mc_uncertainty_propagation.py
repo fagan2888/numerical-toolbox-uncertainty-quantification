@@ -40,11 +40,14 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     Normal.
 
     """
+    df = pd.read_csv("csv/table41_kw_94.csv", sep=",")
+
     qoi = [np.nan] * n_draws
 
     for i in range(n_draws):
         np.random.seed(i + 100)
-        kw94_params = np.random.multivariate_normal(mean, cov)
+        draws = np.random.multivariate_normal(mean, cov)
+        kw94_params = pd.Series(data=draws, index=df["parameter"].values)
         respy_params = transform_params_kw94_respy(kw94_params)
         qoi[i] = model_wrapper_kw_94(respy_params.values)
 
@@ -99,7 +102,6 @@ def transform_params_kw94_respy(kw94_params):
     respy_params[("wage_b", "exp_b_square")] = -kw94_params["alpha23"]
     respy_params[("wage_b", "exp_a_square")] = -kw94_params["alpha25"]
     # betas
-    respy_params[("nonpec_edu", "constant")] = -kw94_params["beta0"]
     respy_params[("nonpec_edu", "at_least_twelve_exp_edu")] = -kw94_params["beta1"]
     respy_params[("nonpec_edu", "not_edu_last_period")] = -kw94_params["beta2"]
 
@@ -131,11 +133,14 @@ def transform_params_kw94_respy(kw94_params):
     respy_params[("wage_a", "exp_a")] = kw94_params["alpha12"]
     respy_params[("wage_a", "exp_b")] = kw94_params["alpha14"]
 
-    # betas
     respy_params[("wage_b", "constant")] = kw94_params["alpha20"]
     respy_params[("wage_b", "exp_edu")] = kw94_params["alpha21"]
-    respy_params[("wage_b", "exp_a")] = kw94_params["alpha22"]
-    respy_params[("wage_b", "exp_b")] = kw94_params["alpha24"]
+    # second number behind alpha switched compared to above
+    respy_params[("wage_b", "exp_a")] = kw94_params["alpha24"]
+    respy_params[("wage_b", "exp_b")] = kw94_params["alpha22"]
+
+    # betas
+    respy_params[("nonpec_edu", "constant")] = kw94_params["beta0"]
 
     # gamma
     respy_params[("nonpec_home", "constant")] = kw94_params["gamma0"]

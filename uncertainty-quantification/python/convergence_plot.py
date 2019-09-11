@@ -48,7 +48,7 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
 
     # Plot expected value.
     exp_plot = ax.hlines(
-        expected, 1, len(sample), lw=2.5, linestyle="--", label="Expected value"
+        expected, 1, len(sample), lw=2.5, linestyle="--", label="True value"
     )
 
     ax.set_title(title, fontsize=28, y=1.05)
