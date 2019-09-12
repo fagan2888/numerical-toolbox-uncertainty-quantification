@@ -1,5 +1,3 @@
-import numpy as np
-import pandas as pd
 import respy as rp
 
 
@@ -15,10 +13,16 @@ def model_wrapper_kw_94(input_params):
 
     Returns
     -------
-    qoi: float
+    qoi_diff: float
         Quantity of Interest.
         The QoI is the effect of a 500 dollar tuition subsidy on
         years of schooling. See table 6, page 668 in KW94.
+
+    Notes
+    -----
+    Different from KW94, the sample is not split in 40 subsamples but left as
+    one. Yet, the mean over one large sample or 40 subsamples of the large
+    sample is identical.
 
     """
     # Build simulate function. It can be reused as only parameters change.
@@ -43,34 +47,12 @@ def model_wrapper_kw_94(input_params):
         ] += tuition_subsidy
         data_frames.append(simulate(params))
 
-    for df in data_frames:
-        df["Bootstrap_Sample"] = pd.cut(df.Identifier, bins=40, labels=np.arange(1, 41))
-
     df_wo_ts = data_frames[0]
     df_w_ts = data_frames[1]
 
-    # Split the sample in 40 parts.
-    df_wo_ts["Bootstrap_Sample"] = pd.cut(
-        df_wo_ts.Identifier, bins=40, labels=np.arange(1, 41)
-    )
-    df_w_ts["Bootstrap_Sample"] = pd.cut(
-        df_w_ts.Identifier, bins=40, labels=np.arange(1, 41)
-    )
+    mean_exp_wo_ts = df_wo_ts.loc[df_wo_ts.Period.eq(39), ["Experience_Edu"]].mean()
+    mean_exp_w_ts = df_w_ts.loc[df_w_ts.Period.eq(39), ["Experience_Edu"]].mean()
 
-    mean_exp_wo_ts = (
-        df_wo_ts.loc[df_wo_ts.Period.eq(39), ["Bootstrap_Sample", "Experience_Edu"]]
-        .groupby("Bootstrap_Sample")
-        .mean()
-    )
-    mean_exp_w_ts = (
-        df_w_ts.loc[df_w_ts.Period.eq(39), ["Bootstrap_Sample", "Experience_Edu"]]
-        .groupby("Bootstrap_Sample")
-        .mean()
-    )
+    qoi_diff = (mean_exp_w_ts - mean_exp_wo_ts).squeeze()
 
-    diff = mean_exp_w_ts - mean_exp_wo_ts
-    diff = diff.reset_index().set_index(["Bootstrap_Sample"]).stack()
-
-    qoi = diff.mean()
-
-    return qoi
+    return qoi_diff
