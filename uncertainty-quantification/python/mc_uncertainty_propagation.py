@@ -43,7 +43,7 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     """
     distribution = cp.MvNormal(loc=mean, scale=cov)
 
-    df = pd.read_csv("csv/table42_kw_94.csv", sep=",")
+    df = pd.read_csv("csv/table43_kw_94.csv", sep=",")
 
     qoi = [np.nan] * n_draws
 
@@ -90,7 +90,7 @@ def transform_params_kw94_respy(kw94_params):
     """
     assert len(kw94_params) == 26, "Length of KW94 vector must be 26."
 
-    params, _ = rp.get_example_model("kw_94_two", with_data=False)
+    params, _ = rp.get_example_model("kw_94_three", with_data=False)
 
     respy_params = pd.Series(
         data=np.full(len(params["value"].values), np.nan), index=params.index
