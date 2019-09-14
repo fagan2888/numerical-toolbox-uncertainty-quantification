@@ -41,21 +41,32 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
     Normal.
 
     """
+
     distribution = cp.MvNormal(loc=mean, scale=cov)
 
     df = pd.read_csv("csv/table41_kw_94.csv", sep=",")
 
-    qoi = [np.nan] * n_draws
+    # Compute reference part of QoI, i.e. education without college tuition subsidy
+    # based on simulated data once outside the loop to save computation time
+    reference_kw94_params = pd.Series(
+        data=df["true"].values, index=df["parameter"].values
+    )
+    reference_respy_params = transform_params_kw94_respy(reference_kw94_params)
+    reference_edu = model_wrapper_kw_94(reference_respy_params.values, 0)
 
+    edu = [np.nan] * n_draws
+
+    # Compute education based on simulations for random paramters based on draws from
+    # the joint distribution. Then subtract the reference education from each
+    # MC education
     np.random.seed(1)
     draws = distribution.sample(n_draws)
-
     kw94_params = [
         pd.Series(data=draw.ravel(), index=df["parameter"].values) for draw in draws.T
     ]
-
     respy_params = [transform_params_kw94_respy(kwp) for kwp in kw94_params]
-    qoi = [model_wrapper_kw_94(rp.values) for rp in respy_params]
+    edu = [model_wrapper_kw_94(rp.values, 500) for rp in respy_params]
+    qoi = edu - reference_edu
 
     if save_json is True:
         with open("json/qoi.json", "w") as write_file:
