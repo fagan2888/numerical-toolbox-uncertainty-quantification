@@ -28,39 +28,40 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
     df["cum_sum"] = df["qoi_realization"].cumsum()
     df["mean_iteration"] = df["cum_sum"] / (df.index.to_series() + 1)
 
+    fig, ax = plt.subplots(figsize=(12, 9))
+
     if absolute_deviation is not True:
         # Compute sample mean for each iteration
         title = "Convergence of Monte-Carlo Uncertainty Propagation (level)"
         file_str = "level"
-
-        fig, ax = plt.subplots(figsize=(12, 9))
+        legend_loc = "lower right"
 
         conv_plot, = ax.plot(
-            df.index + 1, df["mean_iteration"], lw=3.0, label="Sample mean"
+            df.index + 1, df["mean_iteration"], lw=3.0, label="Sample Mean"
         )
 
-        # Plot expected value.
-        exp_plot = ax.hlines(
-            expected, 1, len(sample), lw=2.5, linestyle="--", label="True value"
-        )
     else:
         title = "Convergence of MC Uncertainty Propagation (absolute deviation)"
         file_str = "abs_dev"
-
-        fig, ax = plt.subplots(figsize=(12, 9))
+        legend_loc = "upper right"
 
         conv_plot, = ax.plot(
             df.index + 1,
             abs(df["mean_iteration"] - expected),
             lw=3.0,
-            label="Sample mean",
+            label="Sample Mean",
         )
         expected = 0
 
-        # Plot expected value.
-        exp_plot = ax.hlines(
-            expected, 1, len(sample), lw=2.5, linestyle="--", label="True value"
-        )
+    # Plot expected value.
+    exp_plot = ax.hlines(
+        expected,
+        1,
+        len(sample),
+        lw=2.5,
+        linestyle="--",
+        label="Under Mean Parametrization",
+    )
 
     ax.set_title(title, fontsize=28, y=1.05)
     ax.set_xlim(1, len(sample))
@@ -71,7 +72,7 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
     ax.legend(
         handles=[exp_plot, conv_plot],
         fontsize=20,
-        loc="upper right",
+        loc=legend_loc,
         edgecolor="black",
         fancybox=False,
     )

@@ -22,7 +22,7 @@ def distplot(sample):
 
     # Plot mean as vertical line.
     mean = ax.axvline(
-        np.mean(sample), color="#3F5D7D", linestyle="--", lw=4, label="Sample mean"
+        np.mean(sample), color="#3F5D7D", linestyle="--", lw=4, label="Sample Mean"
     )
 
     # Call seaborn.distplot and set options.
