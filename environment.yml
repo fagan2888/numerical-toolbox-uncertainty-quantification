@@ -19,6 +19,4 @@ dependencies:
 - restructuredtext_lint
 - pip:
   - chaospy
-  - respy
-  # respy commented in again b/c travis somehow started to complain
   #- respy; commented out b/c respy version from develop branch needed.
