@@ -3,7 +3,7 @@ import numpy as np
 import seaborn as sns
 
 
-def distplot(sample):
+def distplot(sample, qoi_name):
     """
     This function is a custom-made wrapper around seaborn.distplot.
 
@@ -16,6 +16,8 @@ def distplot(sample):
     -------
     dp: Figure
         Returns Figure object setting figure-level attributes.
+    qoi_name: str
+        Name of Quantity of interest used for x label and png-name.
 
     """
     fig, ax = plt.subplots(figsize=(12, 9))
@@ -37,13 +39,13 @@ def distplot(sample):
         kde_kws={"linewidth": 5},
     )
 
-    ax.set_title("Distribution of Quantity of Interest", fontsize=28, y=1.05)
+    ax.set_title("Distribution of {}".format(qoi_name), fontsize=28, y=1.05)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.tick_params(axis="both", labelsize=20)
     ax.set_ylabel("Kernel Density Estimate", fontsize=24)
     ax.legend(handles=[mean], fontsize=20, edgecolor="white")
 
-    plt.savefig("figures/distplot.png", bbox_inches="tight")
+    plt.savefig("figures/distplot_{}.png".format(qoi_name), bbox_inches="tight")
 
     return dp

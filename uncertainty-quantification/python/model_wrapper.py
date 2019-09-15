@@ -12,6 +12,8 @@ def model_wrapper_kw_94(input_params, tuition_subsidy):
     ----------
     params: array_like
         Vector of 59 input parameters.
+    tuition_subsidy: float
+        The tuition subsidy value.
 
     Returns
     -------
@@ -19,8 +21,8 @@ def model_wrapper_kw_94(input_params, tuition_subsidy):
         Years of education when there is a tuition subsidy of
         specified value on years of college education.
         See table 6, page 668 in KW94.
-    tuition_subsidy: float
-        The tuition subsidy value
+    params_final: Series
+        final state of paramters after all transformations.
 
     Notes
     -----
@@ -49,5 +51,6 @@ def model_wrapper_kw_94(input_params, tuition_subsidy):
     df_w_ts = simulate(params_ts)
 
     edu = df_w_ts.loc[df_w_ts.Period.eq(39), ["Experience_Edu"]].mean().squeeze()
+    params_final = params_ts["value"]
 
-    return edu
+    return edu, params_final

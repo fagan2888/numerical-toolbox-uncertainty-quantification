@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def convergence_plot(sample, expected, y_label, absolute_deviation=False):
+def convergence_plot(sample, expected, qoi_name, absolute_deviation=False):
     """
     This function is a custom-made convergence plot for some Monte-Carlo
     sample.
@@ -13,7 +13,7 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
         A vector of random observations.
     expected: float, int.
         Expected value of sample mean.
-    y_label: str
+    qoi_name: str
         Label of y-axis.
     absolute_deviation: bool
         Plots absolute deviation of means to zero expectation value.
@@ -66,7 +66,7 @@ def convergence_plot(sample, expected, y_label, absolute_deviation=False):
     ax.set_title(title, fontsize=28, y=1.05)
     ax.set_xlim(1, len(sample))
     ax.grid(True, linestyle=(0, (5, 10)))
-    ax.set_ylabel(y_label, fontsize=24, labelpad=14)
+    ax.set_ylabel(qoi_name, fontsize=24, labelpad=14)
     ax.set_xlabel("Number of iterations", fontsize=24, labelpad=14)
     ax.tick_params(axis="both", labelsize=20)
     ax.legend(

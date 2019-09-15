@@ -7,7 +7,7 @@ import respy as rp
 from python.model_wrapper import model_wrapper_kw_94
 
 
-def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
+def mc_uncertainty_propagation(mean, cov, n_draws, save=False):
     """
     Conducts a Monte Carlo Uncertainty Propagation.
     To conduct the Monte Carlo Uncertainty Propagation, a large number of
@@ -31,9 +31,13 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
 
     Returns
     -------
-    QoI: list
+    qoi: list
         Sample of realizations of Quantity of Interest.
         Number of elements equals len(n_draws).
+    rp_param_draws_df: DataFrame
+        Sample of paramter draws. Extracted after simulation step.
+        Can be used to check whether parameter draws have converged
+        as expected.
 
     Notes
     -----
@@ -52,9 +56,7 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
         data=df["true"].values, index=df["parameter"].values
     )
     reference_respy_params = transform_params_kw94_respy(reference_kw94_params)
-    reference_edu = model_wrapper_kw_94(reference_respy_params.values, 0)
-
-    edu = [np.nan] * n_draws
+    reference_edu = model_wrapper_kw_94(reference_respy_params.values, 0)[0]
 
     # Compute education based on simulations for random paramters based on draws from
     # the joint distribution. Then subtract the reference education from each
@@ -65,16 +67,24 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save_json=False):
         pd.Series(data=draw.ravel(), index=df["parameter"].values) for draw in draws.T
     ]
     respy_params = [transform_params_kw94_respy(kwp) for kwp in kw94_params]
-    edu = [model_wrapper_kw_94(rp.values, 500) for rp in respy_params]
-    qoi = edu - reference_edu
 
-    if save_json is True:
+    edu, rp_param_draws = [np.nan] * n_draws, [np.nan] * n_draws
+    for i, r in zip(range(n_draws), respy_params):
+        edu[i], rp_param_draws[i] = model_wrapper_kw_94(r.values, 500)
+
+    rp_param_draws_df = pd.concat(rp_param_draws, axis=1)
+
+    qoi = [edu[i] - reference_edu for i in range(n_draws)]
+
+    # Save draws to be able to check convergence of input paramters
+    if save is True:
         with open("json/qoi.json", "w") as write_file:
             json.dump(qoi, write_file)
+        rp_param_draws_df.to_csv("csv/input_parameters.csv")
     else:
         pass
 
-    return qoi
+    return qoi, rp_param_draws_df
 
 
 def transform_params_kw94_respy(kw94_params):
