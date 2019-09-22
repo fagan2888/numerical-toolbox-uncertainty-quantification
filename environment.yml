@@ -19,4 +19,5 @@ dependencies:
 - restructuredtext_lint
 - pip:
   - chaospy
+  - git+https://github.com/OpenSourceEconomics/respy@develop
   #- respy; commented out b/c respy version from develop branch needed.
