@@ -14,7 +14,7 @@ dependencies:
 - matplotlib
 - seaborn
 - scipy
-- estimagic=0.0.8
+- estimagic>=0.0.14
 - doc8
 - restructuredtext_lint
 - pip:
