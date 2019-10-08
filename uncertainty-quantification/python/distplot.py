@@ -20,7 +20,9 @@ def distplot(sample, qoi_name):
         Name of Quantity of interest used for x label and png-name.
 
     """
-    fig, ax = plt.subplots(figsize=(12, 9))
+    plt.style.use("../_configs/uq.mplstyle")
+
+    fig, ax = plt.subplots()
 
     # Plot mean as vertical line.
     mean = ax.axvline(
@@ -43,7 +45,7 @@ def distplot(sample, qoi_name):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.tick_params(axis="both", labelsize=20)
-    ax.set_ylabel("Kernel Density Estimate", fontsize=24)
+    ax.set_ylabel("Kernel Density Estimate", fontsize=24, labelpad=30)
     ax.legend(handles=[mean], fontsize=20, edgecolor="white")
 
     plt.savefig("figures/distplot_{}.png".format(qoi_name), bbox_inches="tight")

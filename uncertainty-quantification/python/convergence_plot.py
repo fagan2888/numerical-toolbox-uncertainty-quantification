@@ -24,11 +24,13 @@ def convergence_plot(sample, expected, qoi_name, absolute_deviation=False):
         Returns Figure object setting figure-level attributes.
 
     """
+    plt.style.use("../_configs/uq.mplstyle")
+
     df = pd.DataFrame(sample, columns=["qoi_realization"])
     df["cum_sum"] = df["qoi_realization"].cumsum()
     df["mean_iteration"] = df["cum_sum"] / (df.index.to_series() + 1)
 
-    fig, ax = plt.subplots(figsize=(12, 9))
+    fig, ax = plt.subplots()
 
     if absolute_deviation is not True:
         # Compute sample mean for each iteration
