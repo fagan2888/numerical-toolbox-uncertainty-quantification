@@ -52,11 +52,9 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save=False):
 
     # Compute reference part of QoI, i.e. education without college tuition subsidy
     # based on simulated data once outside the loop to save computation time
-    reference_kw94_params = pd.Series(
-        data=df["true"].values, index=df["parameter"].values
-    )
-    reference_respy_params = transform_params_kw94_respy(reference_kw94_params)
-    reference_edu = model_wrapper_kw_94(reference_respy_params.values, 0)[0]
+    ref_kw94_params = pd.Series(data=df["true"].values, index=df["parameter"].values)
+    ref_rp_params = transform_params_kw94_respy(ref_kw94_params)
+    ref_edu, _ = model_wrapper_kw_94(ref_rp_params.values, 0)
 
     # Compute education based on simulations for random paramters based on draws from
     # the joint distribution. Then subtract the reference education from each
@@ -66,15 +64,15 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save=False):
     kw94_params = [
         pd.Series(data=draw.ravel(), index=df["parameter"].values) for draw in draws.T
     ]
-    respy_params = [transform_params_kw94_respy(kwp) for kwp in kw94_params]
+    rp_params = [transform_params_kw94_respy(kwp) for kwp in kw94_params]
 
     edu, rp_param_draws = [np.nan] * n_draws, [np.nan] * n_draws
-    for i, r in zip(range(n_draws), respy_params):
+    for i, r in zip(range(n_draws), rp_params):
         edu[i], rp_param_draws[i] = model_wrapper_kw_94(r.values, 500)
 
     rp_param_draws_df = pd.concat(rp_param_draws, axis=1)
 
-    qoi = [edu[i] - reference_edu for i in range(n_draws)]
+    qoi = [edu[i] - ref_edu for i in range(n_draws)]
 
     # Save draws to be able to check convergence of input paramters
     if save is True:
@@ -105,7 +103,7 @@ def transform_params_kw94_respy(kw94_params):
 
     Returns
     -------
-    params: pd.Series indexed by respy Paramter names
+    rp_params: pd.Series indexed by respy Paramter names
         Vector of model input parameters in respy format.
 
     """
@@ -113,24 +111,24 @@ def transform_params_kw94_respy(kw94_params):
 
     params, _ = rp.get_example_model("kw_94_one", with_data=False)
 
-    respy_params = pd.Series(
+    rp_params = pd.Series(
         data=np.full(len(params["value"].values), np.nan), index=params.index
     )
 
     # Copy values that are not in KW94 from respy paramters.
-    respy_params[("delta", "delta")] = params.loc[("delta", "delta"), "value"]
-    respy_params[("meas_error", "sd_a")] = params.loc[("meas_error", "sd_a"), "value"]
-    respy_params[("meas_error", "sd_b")] = params.loc[("meas_error", "sd_b"), "value"]
+    rp_params[("delta", "delta")] = params.loc[("delta", "delta"), "value"]
+    rp_params[("meas_error", "sd_a")] = params.loc[("meas_error", "sd_a"), "value"]
+    rp_params[("meas_error", "sd_b")] = params.loc[("meas_error", "sd_b"), "value"]
 
     # Set values that are transformed with *(-1) by respy
     # square experiences alphas
-    respy_params[("wage_a", "exp_a_square")] = -kw94_params["alpha13"]
-    respy_params[("wage_a", "exp_b_square")] = -kw94_params["alpha15"]
-    respy_params[("wage_b", "exp_b_square")] = -kw94_params["alpha23"]
-    respy_params[("wage_b", "exp_a_square")] = -kw94_params["alpha25"]
+    rp_params[("wage_a", "exp_a_square")] = -kw94_params["alpha13"]
+    rp_params[("wage_a", "exp_b_square")] = -kw94_params["alpha15"]
+    rp_params[("wage_b", "exp_b_square")] = -kw94_params["alpha23"]
+    rp_params[("wage_b", "exp_a_square")] = -kw94_params["alpha25"]
     # betas
-    respy_params[("nonpec_edu", "at_least_twelve_exp_edu")] = -kw94_params["beta1"]
-    respy_params[("nonpec_edu", "not_edu_last_period")] = -kw94_params["beta2"]
+    rp_params[("nonpec_edu", "at_least_twelve_exp_edu")] = -kw94_params["beta1"]
+    rp_params[("nonpec_edu", "not_edu_last_period")] = -kw94_params["beta2"]
 
     # Set SDs and Corrs that are Cholesky elements in KW94.
     chol = np.zeros((4, 4))
@@ -142,34 +140,34 @@ def transform_params_kw94_respy(kw94_params):
     cov = np.matmul(chol, chol.T)
     sd = np.sqrt(np.diag(cov))
 
-    respy_params[("shocks", "sd_a")] = sd[0]
-    respy_params[("shocks", "sd_b")] = sd[1]
-    respy_params[("shocks", "sd_edu")] = sd[2]
-    respy_params[("shocks", "sd_home")] = sd[3]
-    respy_params[("shocks", "corr_b_a")] = cov[1, 0] / (sd[1] * sd[0])
-    respy_params[("shocks", "corr_edu_a")] = cov[2, 0] / (sd[2] * sd[0])
-    respy_params[("shocks", "corr_edu_b")] = cov[2, 1] / (sd[2] * sd[1])
-    respy_params[("shocks", "corr_home_a")] = cov[3, 0] / (sd[3] * sd[0])
-    respy_params[("shocks", "corr_home_b")] = cov[3, 1] / (sd[3] * sd[1])
-    respy_params[("shocks", "corr_home_edu")] = cov[3, 2] / (sd[3] * sd[2])
+    rp_params[("shocks", "sd_a")] = sd[0]
+    rp_params[("shocks", "sd_b")] = sd[1]
+    rp_params[("shocks", "sd_edu")] = sd[2]
+    rp_params[("shocks", "sd_home")] = sd[3]
+    rp_params[("shocks", "corr_b_a")] = cov[1, 0] / (sd[1] * sd[0])
+    rp_params[("shocks", "corr_edu_a")] = cov[2, 0] / (sd[2] * sd[0])
+    rp_params[("shocks", "corr_edu_b")] = cov[2, 1] / (sd[2] * sd[1])
+    rp_params[("shocks", "corr_home_a")] = cov[3, 0] / (sd[3] * sd[0])
+    rp_params[("shocks", "corr_home_b")] = cov[3, 1] / (sd[3] * sd[1])
+    rp_params[("shocks", "corr_home_edu")] = cov[3, 2] / (sd[3] * sd[2])
 
     # Fill in KW94 paramters that are not transformed.
     # alphas
-    respy_params[("wage_a", "constant")] = kw94_params["alpha10"]
-    respy_params[("wage_a", "exp_edu")] = kw94_params["alpha11"]
-    respy_params[("wage_a", "exp_a")] = kw94_params["alpha12"]
-    respy_params[("wage_a", "exp_b")] = kw94_params["alpha14"]
+    rp_params[("wage_a", "constant")] = kw94_params["alpha10"]
+    rp_params[("wage_a", "exp_edu")] = kw94_params["alpha11"]
+    rp_params[("wage_a", "exp_a")] = kw94_params["alpha12"]
+    rp_params[("wage_a", "exp_b")] = kw94_params["alpha14"]
 
-    respy_params[("wage_b", "constant")] = kw94_params["alpha20"]
-    respy_params[("wage_b", "exp_edu")] = kw94_params["alpha21"]
+    rp_params[("wage_b", "constant")] = kw94_params["alpha20"]
+    rp_params[("wage_b", "exp_edu")] = kw94_params["alpha21"]
     # second number behind alpha switched compared to above
-    respy_params[("wage_b", "exp_a")] = kw94_params["alpha24"]
-    respy_params[("wage_b", "exp_b")] = kw94_params["alpha22"]
+    rp_params[("wage_b", "exp_a")] = kw94_params["alpha24"]
+    rp_params[("wage_b", "exp_b")] = kw94_params["alpha22"]
 
     # betas
-    respy_params[("nonpec_edu", "constant")] = kw94_params["beta0"]
+    rp_params[("nonpec_edu", "constant")] = kw94_params["beta0"]
 
     # gamma
-    respy_params[("nonpec_home", "constant")] = kw94_params["gamma0"]
+    rp_params[("nonpec_home", "constant")] = kw94_params["gamma0"]
 
-    return respy_params
+    return rp_params

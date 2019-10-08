@@ -12,4 +12,4 @@ conda update -q conda
 conda info -a
 
 # install from develop branch because tools not in master are needed.
-pip install git+https://github.com/OpenSourceEconomics/respy@develop
+#pip install git+https://github.com/OpenSourceEconomics/respy@develop

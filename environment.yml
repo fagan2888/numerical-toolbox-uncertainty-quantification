@@ -10,14 +10,19 @@ dependencies:
 - pip
 - numpy
 - pandas=0.24
+- pytest
 - jupyterlab
 - matplotlib
 - seaborn
 - scipy
 - estimagic>=0.0.14
+- black
+- flake8
 - doc8
 - restructuredtext_lint
+- tox-conda
 - pip:
   - chaospy
+  - pre-commit
   - git+https://github.com/OpenSourceEconomics/respy@develop
   #- respy; commented out b/c respy version from develop branch needed.

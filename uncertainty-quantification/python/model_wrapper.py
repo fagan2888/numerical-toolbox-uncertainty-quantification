@@ -1,3 +1,4 @@
+import pandas as pd
 import respy as rp
 
 
@@ -48,9 +49,9 @@ def model_wrapper_kw_94(input_params, tuition_subsidy):
     # Set paramters equal to input paramters.
     params_ts["value"] = input_params
     params_ts.loc[("nonpec_edu", "at_least_twelve_exp_edu"), "value"] += tuition_subsidy
-    df_w_ts = simulate(params_ts)
+    df_ts = simulate(params_ts)
 
-    edu = df_w_ts.loc[df_w_ts.Period.eq(39), ["Experience_Edu"]].mean().squeeze()
-    params_final = params_ts["value"]
+    edu = df_ts.loc[df_ts.Period.eq(39), ["Experience_Edu"]].mean().squeeze()
+    params_final = pd.Series(params_ts["value"], index=params.index)
 
     return edu, params_final
