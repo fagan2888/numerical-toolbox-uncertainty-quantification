@@ -119,6 +119,13 @@ def transform_params_kw94_respy(kw94_params):
     rp_params[("delta", "delta")] = params.loc[("delta", "delta"), "value"]
     rp_params[("meas_error", "sd_a")] = params.loc[("meas_error", "sd_a"), "value"]
     rp_params[("meas_error", "sd_b")] = params.loc[("meas_error", "sd_b"), "value"]
+    rp_params[("lagged_choice_1_edu", "edu_ten")] = params.loc[
+        ("lagged_choice_1_edu", "edu_ten"), "value"
+    ]
+    rp_params[("initial_exp_edu", "10")] = params.loc[
+        ("initial_exp_edu", "10"), "value"
+    ]
+    rp_params[("maximum_exp", "edu")] = params.loc[("maximum_exp", "edu"), "value"]
 
     # Set values that are transformed with *(-1) by respy
     # square experiences alphas
@@ -140,16 +147,16 @@ def transform_params_kw94_respy(kw94_params):
     cov = np.matmul(chol, chol.T)
     sd = np.sqrt(np.diag(cov))
 
-    rp_params[("shocks", "sd_a")] = sd[0]
-    rp_params[("shocks", "sd_b")] = sd[1]
-    rp_params[("shocks", "sd_edu")] = sd[2]
-    rp_params[("shocks", "sd_home")] = sd[3]
-    rp_params[("shocks", "corr_b_a")] = cov[1, 0] / (sd[1] * sd[0])
-    rp_params[("shocks", "corr_edu_a")] = cov[2, 0] / (sd[2] * sd[0])
-    rp_params[("shocks", "corr_edu_b")] = cov[2, 1] / (sd[2] * sd[1])
-    rp_params[("shocks", "corr_home_a")] = cov[3, 0] / (sd[3] * sd[0])
-    rp_params[("shocks", "corr_home_b")] = cov[3, 1] / (sd[3] * sd[1])
-    rp_params[("shocks", "corr_home_edu")] = cov[3, 2] / (sd[3] * sd[2])
+    rp_params[("shocks_sdcorr", "sd_a")] = sd[0]
+    rp_params[("shocks_sdcorr", "sd_b")] = sd[1]
+    rp_params[("shocks_sdcorr", "sd_edu")] = sd[2]
+    rp_params[("shocks_sdcorr", "sd_home")] = sd[3]
+    rp_params[("shocks_sdcorr", "corr_b_a")] = cov[1, 0] / (sd[1] * sd[0])
+    rp_params[("shocks_sdcorr", "corr_edu_a")] = cov[2, 0] / (sd[2] * sd[0])
+    rp_params[("shocks_sdcorr", "corr_edu_b")] = cov[2, 1] / (sd[2] * sd[1])
+    rp_params[("shocks_sdcorr", "corr_home_a")] = cov[3, 0] / (sd[3] * sd[0])
+    rp_params[("shocks_sdcorr", "corr_home_b")] = cov[3, 1] / (sd[3] * sd[1])
+    rp_params[("shocks_sdcorr", "corr_home_edu")] = cov[3, 2] / (sd[3] * sd[2])
 
     # Fill in KW94 paramters that are not transformed.
     # alphas
