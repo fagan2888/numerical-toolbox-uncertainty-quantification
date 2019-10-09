@@ -24,7 +24,7 @@ def convergence_plot(sample, expected, qoi_name, absolute_deviation=False):
         Returns Figure object setting figure-level attributes.
 
     """
-    plt.style.use("../_configs/uq.mplstyle")
+    plt.style.use("_configs/uq.mplstyle")
 
     df = pd.DataFrame(sample, columns=["qoi_realization"])
     df["cum_sum"] = df["qoi_realization"].cumsum()
@@ -65,18 +65,14 @@ def convergence_plot(sample, expected, qoi_name, absolute_deviation=False):
         label="Under Mean Parametrization",
     )
 
-    ax.set_title(title, fontsize=28, y=1.05)
+    ax.set_title(title, y=1.05)
     ax.set_xlim(1, len(sample))
     ax.grid(True, linestyle=(0, (5, 10)))
-    ax.set_ylabel(qoi_name, fontsize=24, labelpad=14)
-    ax.set_xlabel("Number of iterations", fontsize=24, labelpad=14)
-    ax.tick_params(axis="both", labelsize=20)
+    ax.set_ylabel(qoi_name, labelpad=14)
+    ax.set_xlabel("Number of iterations", labelpad=14)
+    ax.tick_params(axis="both")
     ax.legend(
-        handles=[exp_plot, conv_plot],
-        fontsize=20,
-        loc=legend_loc,
-        edgecolor="black",
-        fancybox=False,
+        handles=[exp_plot, conv_plot], loc=legend_loc, edgecolor="black", fancybox=False
     )
 
     plt.savefig("figures/convergence_plot_{}.png".format(file_str), bbox_inches="tight")

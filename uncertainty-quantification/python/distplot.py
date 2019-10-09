@@ -20,7 +20,7 @@ def distplot(sample, qoi_name):
         Name of Quantity of interest used for x label and png-name.
 
     """
-    plt.style.use("../_configs/uq.mplstyle")
+    plt.style.use("_configs/uq.mplstyle")
 
     fig, ax = plt.subplots()
 
@@ -41,12 +41,11 @@ def distplot(sample, qoi_name):
         kde_kws={"linewidth": 5},
     )
 
-    ax.set_title("Distribution of {}".format(qoi_name), fontsize=28, y=1.05)
+    ax.set_title("Distribution of {}".format(qoi_name), y=1.05)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.tick_params(axis="both", labelsize=20)
-    ax.set_ylabel("Kernel Density Estimate", fontsize=24, labelpad=30)
-    ax.legend(handles=[mean], fontsize=20, edgecolor="white")
+    ax.set_ylabel("Kernel Density Estimate", labelpad=30)
+    ax.legend(handles=[mean], edgecolor="white")
 
     plt.savefig("figures/distplot_{}.png".format(qoi_name), bbox_inches="tight")
 
