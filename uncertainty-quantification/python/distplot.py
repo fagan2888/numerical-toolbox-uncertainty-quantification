@@ -26,7 +26,7 @@ def distplot(sample, qoi_name):
 
     # Plot mean as vertical line.
     mean = ax.axvline(
-        np.mean(sample), color="#3F5D7D", linestyle="--", lw=4, label="Sample Mean"
+        np.mean(sample), color="#1245A8", linestyle="--", lw=4, label="Sample Mean"
     )
 
     # Call seaborn.distplot and set options.
@@ -35,10 +35,9 @@ def distplot(sample, qoi_name):
         hist=True,
         kde=True,
         bins=100,
-        color="#3F5D7D",
         norm_hist=True,
-        hist_kws={"edgecolor": "#3F5D7D"},
-        kde_kws={"linewidth": 5},
+        hist_kws=dict(alpha=0.4, color="#1245A8", edgecolor="#1245A8"),
+        kde_kws=dict(color="#1245A8", linewidth=5),
     )
 
     ax.set_title("Distribution of {}".format(qoi_name), y=1.05)

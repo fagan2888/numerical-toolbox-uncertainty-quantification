@@ -39,7 +39,11 @@ def convergence_plot(sample, expected, qoi_name, absolute_deviation=False):
         legend_loc = "lower right"
 
         conv_plot, = ax.plot(
-            df.index + 1, df["mean_iteration"], lw=3.0, label="Sample Mean"
+            df.index + 1,
+            df["mean_iteration"],
+            color="#1245A8",
+            lw=3.0,
+            label="Sample Mean",
         )
 
     else:
@@ -50,6 +54,7 @@ def convergence_plot(sample, expected, qoi_name, absolute_deviation=False):
         conv_plot, = ax.plot(
             df.index + 1,
             abs(df["mean_iteration"] - expected),
+            color="#1245A8",
             lw=3.0,
             label="Sample Mean",
         )
@@ -75,6 +80,9 @@ def convergence_plot(sample, expected, qoi_name, absolute_deviation=False):
         handles=[exp_plot, conv_plot], loc=legend_loc, edgecolor="black", fancybox=False
     )
 
-    plt.savefig("figures/convergence_plot_{}.png".format(file_str), bbox_inches="tight")
+    plt.savefig(
+        "figures/convergence_plot_{}_{}.png".format(file_str, qoi_name),
+        bbox_inches="tight",
+    )
 
     return plt
