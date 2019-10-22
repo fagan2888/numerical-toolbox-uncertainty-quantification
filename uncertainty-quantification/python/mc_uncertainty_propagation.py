@@ -4,6 +4,8 @@ import chaospy as cp
 import numpy as np
 import pandas as pd
 import respy as rp
+
+# TODO: proper grouping o imports
 from python.model_wrapper import model_wrapper_kw_94
 
 
@@ -47,31 +49,39 @@ def mc_uncertainty_propagation(mean, cov, n_draws, save=False):
     """
 
     distribution = cp.MvNormal(loc=mean, scale=cov)
-
+    
+    # TODO: Set most of path to config file
+    # TODO: Code needs to work with all versions.
     df = pd.read_csv("csv/table41_kw_94.csv", sep=",")
 
     # Compute reference part of QoI, i.e. education without college tuition subsidy
     # based on simulated data once outside the loop to save computation time
     ref_kw94_params = pd.Series(data=df["true"].values, index=df["parameter"].values)
     ref_rp_params = transform_params_kw94_respy(ref_kw94_params)
+    
+    # TODO: Pass in paramters df, so interfaces all look alike (se above)
     ref_edu, _ = model_wrapper_kw_94(ref_rp_params.values, 0)
 
     # Compute education based on simulations for random paramters based on draws from
     # the joint distribution. Then subtract the reference education from each
     # MC education
+    # TODO: Seed as function argument with default value
     np.random.seed(1)
     draws = distribution.sample(n_draws)
     kw94_params = [
         pd.Series(data=draw.ravel(), index=df["parameter"].values) for draw in draws.T
     ]
     rp_params = [transform_params_kw94_respy(kwp) for kwp in kw94_params]
-
+    
+    # TODO: Too complicated, just use append()
     edu, rp_param_draws = [np.nan] * n_draws, [np.nan] * n_draws
     for i, r in zip(range(n_draws), rp_params):
+        # TODO: No hard-coded numbers somewhere in a function.
         edu[i], rp_param_draws[i] = model_wrapper_kw_94(r.values, 500)
 
     rp_param_draws_df = pd.concat(rp_param_draws, axis=1)
-
+    
+    # TODO: compute in loop above directly.
     qoi = [edu[i] - ref_edu for i in range(n_draws)]
 
     # Save draws to be able to check convergence of input paramters

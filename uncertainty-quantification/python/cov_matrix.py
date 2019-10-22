@@ -23,6 +23,7 @@ def create_cov_matrix():
     cov_df (DataFrame):
         Covariance Matrix labeled by variable names on both axes
     """
+    # TODO: Generic for all respy example models, this refers to all the code.
     params, options = rp.get_example_model("kw_94_one", with_data=False)
 
     df = pd.read_csv("csv/table41_kw_94.csv", sep=",", index_col=1)

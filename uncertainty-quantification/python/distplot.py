@@ -20,6 +20,7 @@ def distplot(sample, qoi_name):
         Name of Quantity of interest used for x label and png-name.
 
     """
+    # TODO: use https://github.com/OpenSourceEconomics/numerical-toolbox-integration/blob/master/.envrc as an example, configuration dir, no tailoring of graphs.
     plt.style.use("_configs/uq.mplstyle")
 
     fig, ax = plt.subplots()

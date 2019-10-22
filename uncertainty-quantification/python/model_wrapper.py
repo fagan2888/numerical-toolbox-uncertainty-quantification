@@ -35,16 +35,21 @@ def model_wrapper_kw_94(input_params, tuition_subsidy):
     computed on simulated data for each iteration this is not done here.
 
     """
-    # Build simulate function. It can be reused as only parameters change.
-    params, options = rp.get_example_model("kw_94_one", with_data=False)
-    options["simulation_agents"] = 4000
-    simulate = rp.get_simulate_func(params, options)
-
+    # TODO: Tests at beginning of function
     # Check whether length of input_params is correct.
     assert len(input_params) == len(
         params["value"].to_numpy()
     ), "The number of input parameters must equal the number of model parameters."
 
+
+    # Build simulate function. It can be reused as only parameters change.
+    # TODO: We want this to work with any KW model. In the future also KW97
+    params, options = rp.get_example_model("kw_94_one", with_data=False)
+    
+    # TODO: Why?
+    options["simulation_agents"] = 4000
+    simulate = rp.get_simulate_func(params, options)
+    
     params_ts, _ = rp.get_example_model("kw_94_one", with_data=False)
     # Set paramters equal to input paramters.
     params_ts["value"] = input_params
@@ -52,6 +57,10 @@ def model_wrapper_kw_94(input_params, tuition_subsidy):
     df_ts = simulate(params_ts)
 
     edu = df_ts.loc[df_ts.Period.eq(39), ["Experience_Edu"]].mean().squeeze()
+    
+    # TODO: better pandas syntax
+    # edu = df_ts.groupby("Identififer")["Experience_Edu"].max().mean()
+    
     params_final = pd.Series(params_ts["value"], index=params.index)
 
     return edu, params_final
