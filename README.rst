@@ -40,3 +40,4 @@ Evidence <http://research.economics.unsw.edu.au/mkeane/Solution_Estimation_DP.pd
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
      :target: https://github.com/OpenSourceEconomics/numerical-toolbox-uncertainty-quantification/blob/master/LICENSE
 
+
