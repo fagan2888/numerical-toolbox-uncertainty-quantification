@@ -13,6 +13,5 @@ install:
 
 script:
   - source .envrc
-  - echo $PATH
   - create-results
-  - execute-noteboooks
+  - execute-notebooks
