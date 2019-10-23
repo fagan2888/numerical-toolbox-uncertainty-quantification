@@ -7,6 +7,7 @@ lines.linewidth: 5
 image.cmap: jet
 
 axes.labelsize : 30
+axes.titlesize : 30
 
 axes.spines.right: False
 axes.spines.left: True
