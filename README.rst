@@ -2,12 +2,9 @@
 Exploration Uncertainty Quantification
 **************************************
 
-We explore the usefulness of uncertainty quantification for structural economic models. We
- explore the seminal model of dynamic human capital investment presented in:
+We explore the usefulness of uncertainty quantification for structural economic models. We explore the seminal model of dynamic human capital investment presented in:
 
-* Keane, M. P. & Wolpin, W. I. (1994). `The solution and estimation of discrete choice dynamic
- pogramming models by simulation and interpolation: Monte Carlo evidence
- <https://wwsw.jstor.org/stable/i336982>`_,  *Review of Economics and Statistics*, 76(4): 648-672.
+  Keane, M. P. & Wolpin, W. I. (1994). `The solution and estimation of discrete choice dynamic pogramming models by simulation and interpolation: Monte Carlo evidence <https://wwsw.jstor.org/stable/i336982>`_,  *Review of Economics and Statistics*, 76(4): 648-672.
 
 Please visit our notebook for details.
 
