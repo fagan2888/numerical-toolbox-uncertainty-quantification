@@ -73,13 +73,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="Create results for UQ analysis.")
 
-    parser.add_argument("-s", "--seed", action="store", dest="seed", default=123,
+    parser.add_argument("-s", "--seed", action="store", dest="seed", default=123, type=int,
                         help="set seed for the analysis")
 
-    parser.add_argument("-d", "--draws", action="store", dest="num_draws", default=5,
+    parser.add_argument("-d", "--draws", action="store", dest="num_draws", default=5, type=int,
                         help="set number of draws")
 
-    parser.add_argument("-p", "--procs", action="store", dest="num_procs", default=2,
+    parser.add_argument("-p", "--procs", action="store", dest="num_procs", default=2, type=int,
                         help="set number of processes")
 
     args = parser.parse_args()
