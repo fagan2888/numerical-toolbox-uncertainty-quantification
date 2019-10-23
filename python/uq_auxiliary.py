@@ -19,8 +19,6 @@ def get_quantitiy_of_interest(sample):
     policy_edu, _ = model_wrapper_kw_94(param_sample, base_options, 500.0)
     base_edu, _ = model_wrapper_kw_94(param_sample, base_options, 0.0)
 
-    print(policy_edu - base_edu)
-
     return policy_edu - base_edu
 
 
