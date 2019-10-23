@@ -10,7 +10,7 @@ install:
   - ./_travis_utils/travis_miniconda.sh
   - PATH="$HOME/miniconda/bin:$PATH"
   - conda env create -f environment.yml
-  - source activate uq
+  - source .envrc
 
 script:
-  - travis_wait python _travis_utils/travis_runner.py
+  - execute-noteboooks
