@@ -12,6 +12,7 @@ install:
   - conda env create -f environment.yml
 
 script:
+  - echo $PATH
   - source .envrc
   - create-results
   - execute-noteboooks
