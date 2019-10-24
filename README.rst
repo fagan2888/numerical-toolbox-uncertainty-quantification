@@ -2,7 +2,7 @@
 Uncertainty quantification for economists
 ******************************************
 
-We explore the usefulness of uncertainty quantification for structural economic models. We explore the seminal model of dynamic human capital investment presented in:
+We explore the usefulness of uncertainty quantification for structural economic models. We analyze the seminal model of dynamic human capital investment presented in:
 
   Keane, M. P. & Wolpin, W. I. (1997). `The career decisions of young men <https://www.jstor.org/stable/10.1086/262080>`_,  *Journal of Political Economy*, 105(3): pp. 473-522.
 
