@@ -16,6 +16,7 @@ import yaml
 import os
 
 import matplotlib.pyplot as plt
+import seaborn as sns
 import pickle as pkl
 import pandas as pd
 
