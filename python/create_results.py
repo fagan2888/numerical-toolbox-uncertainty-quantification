@@ -23,8 +23,9 @@ import respy as rp
 
 from uq_auxiliary import transform_params_kw94_respy
 from uq_auxiliary import get_quantity_of_interest
-from uq_configurations import INPUT_DIR, RSLT_DIR
 from uq_auxiliary import model_wrapper_kw_94
+from uq_configurations import INPUT_DIR
+from uq_configurations import RSLT_DIR
 
 
 def run(args):
@@ -35,7 +36,7 @@ def run(args):
     base_edu, _ = model_wrapper_kw_94(base_params, base_options, 0)
     base_quantity = policy_edu - base_edu
 
-    base_quantity = pd.DataFrame(base_quantity, columns=['avg_schooling'], index=[0], dtype="float")
+    base_quantity = pd.DataFrame(base_quantity, columns=['avg_schooling'], index=[0])
     base_quantity.to_pickle(RSLT_DIR / "base_quantity.uq.pkl")
     base_params.to_pickle(RSLT_DIR / "base_params.uq.pkl")
 
@@ -66,8 +67,6 @@ def run(args):
 
     mc_quantities = pd.DataFrame(quantities, columns=['avg_schooling'], index=range(args.num_draws))
     mc_quantities.index.name = 'iteration'
-
-    print(mc_quantities.head())
 
     mc_quantities.to_pickle("mc_quantity.uq.pkl")
     mc_params.to_pickle("mc_params.uq.pkl")
