@@ -6,10 +6,11 @@ import pandas as pd
 from uq_configurations import INPUT_DIR
 
 
-def get_quantitiy_of_interest(sample):
+def get_quantity_of_interest(sample):
 
+    # We need the baseline options and a grid for the indices. It does not matter which of the
+    # three KW94 specifications we use here.
     base_params, base_options = rp.get_example_model("kw_94_one", with_data=False)
-
     index = pd.read_csv(f"{INPUT_DIR}/table41_kw_94.csv", sep=",")["parameter"].values
 
     sample = pd.Series(data=sample, index=index)
@@ -22,28 +23,23 @@ def get_quantitiy_of_interest(sample):
     return policy_edu - base_edu
 
 
+def model_wrapper_kw_94(params, base_options, tuition_subsidy):
+    # TODO: This needs to done only once during the whole script. However, this requires me to
+    #  set up a more complicated structure for the parallelism and so we will simply postpone
+    #  this until we have a more serious application.
+    simulate = rp.get_simulate_func(params, base_options)
+
+    policy_params = params.copy()
+    policy_params.loc[("nonpec_edu", "at_least_twelve_exp_edu"), "value"] += tuition_subsidy
+    policy_df = simulate(policy_params)
+
+    edu = policy_df.groupby("Identifier")["Experience_Edu"].max().mean()
+
+    return edu, policy_df
+
+
 def transform_params_kw94_respy(kw94_params):
-    """
-    Transforms parameters vector in format of KW94 (see table 4.1)
-    to respy format.
-    It accounts for the the difference between respy and KW94 in two points:
-    - The order of a-parameters differs
-    - The factors for squared experience and beta2 are multiplied by (-1) in respy
-    - KW94 specifyies the distribution of
-    elements in a Cholesky Decomposition matrix but respy takes
-    Standard deviations and Correlations.
 
-    Parameters
-    ----------
-    kw94_params: pd.Series indexed by KW94 Paramter names
-        Vector of model input parameters in KW94 format.
-
-    Returns
-    -------
-    rp_params: pd.Series indexed by respy Paramter names
-        Vector of model input parameters in respy format.
-
-    """
     assert len(kw94_params) == 26, "Length of KW94 vector must be 26."
 
     params, _ = rp.get_example_model("kw_94_one", with_data=False)
@@ -115,39 +111,3 @@ def transform_params_kw94_respy(kw94_params):
     rp_params[("nonpec_home", "constant")] = kw94_params["gamma0"]
 
     return rp_params
-
-
-def model_wrapper_kw_94(params, base_options, tuition_subsidy):
-    """
-    The model is the Dicrete Occupational Dynamic Programming Model
-    in Keane and Wolpin (1994) (abbreviated by KW94). This function
-    computes the mean years of education of a sample of agents when
-    a specifyable college tuition subsidy is distributed.
-
-    Parameters
-    ----------
-    params: array_like
-        Vector of 59 input parameters.
-    tuition_subsidy: float
-        The tuition subsidy value.
-
-    Returns
-    -------
-    edu: float
-        Years of education when there is a tuition subsidy of
-        specified value on years of college education.
-        See table 6, page 668 in KW94.
-    params_final: Series
-        final state of paramters after all transformations.
-
-    """
-    # TODO: Can we move this out?
-    simulate = rp.get_simulate_func(params, base_options)
-
-    policy_params = params.copy()
-    policy_params.loc[("nonpec_edu", "at_least_twelve_exp_edu"), "value"] += tuition_subsidy
-    policy_df = simulate(policy_params)
-
-    edu = policy_df.groupby("Identifier")["Experience_Edu"].max().mean()
-
-    return edu, policy_df

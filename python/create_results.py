@@ -22,7 +22,7 @@ import numpy as np
 import respy as rp
 
 from uq_auxiliary import transform_params_kw94_respy
-from uq_auxiliary import get_quantitiy_of_interest
+from uq_auxiliary import get_quantity_of_interest
 from uq_configurations import INPUT_DIR, RSLT_DIR
 from uq_auxiliary import model_wrapper_kw_94
 
@@ -31,9 +31,11 @@ def run(args):
 
     # We need to take stock for baseline parameters and store them for future processing.
     base_params, base_options = rp.get_example_model("kw_94_one", with_data=False)
-    edu, policy_df = model_wrapper_kw_94(base_params, base_options, 500)
+    policy_edu, _ = model_wrapper_kw_94(base_params, base_options, 500)
+    base_edu, _ = model_wrapper_kw_94(base_params, base_options, 0)
+    base_quantity = policy_edu - base_edu
 
-    base_quantity = pd.DataFrame(edu, columns=['avg_schooling'], index=[0], dtype="float")
+    base_quantity = pd.DataFrame(base_quantity, columns=['avg_schooling'], index=[0], dtype="float")
     base_quantity.to_pickle(RSLT_DIR / "base_quantity.uq.pkl")
     base_params.to_pickle(RSLT_DIR / "base_params.uq.pkl")
 
@@ -49,7 +51,7 @@ def run(args):
     for _ in range(args.num_draws):
         samples.append(distribution.sample())
 
-    quantities = mp.Pool(args.num_procs).map(get_quantitiy_of_interest, samples)
+    quantities = mp.Pool(args.num_procs).map(get_quantity_of_interest, samples)
 
     # We now store the random parameters and the quantity of interest for further processing.
     index = pd.read_csv(f"{INPUT_DIR}/table41_kw_94.csv", sep=",")["parameter"].values
@@ -65,8 +67,10 @@ def run(args):
     mc_quantities = pd.DataFrame(quantities, columns=['avg_schooling'], index=range(args.num_draws))
     mc_quantities.index.name = 'iteration'
 
-    mc_quantities.to_pickle("mc_quantity.respy.pkl")
-    mc_params.to_pickle("mc_params.respy.pkl")
+    print(mc_quantities.head())
+
+    mc_quantities.to_pickle("mc_quantity.uq.pkl")
+    mc_params.to_pickle("mc_params.uq.pkl")
 
 
 if __name__ == '__main__':
