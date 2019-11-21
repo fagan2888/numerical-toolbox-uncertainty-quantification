@@ -102,7 +102,7 @@ def univariate_effects_plot(
     fig.tight_layout()
 
     if path is not None:
-        fig.savefig(path, dpi=200)
+        plt.savefig(path, dpi=200)
     return fig, axes
 
 
